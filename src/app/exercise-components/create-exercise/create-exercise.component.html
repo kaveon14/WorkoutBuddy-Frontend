@@ -1,0 +1,22 @@
+<div class="container">
+  <form [formGroup]="formG"  (ngSubmit)="onSubmit()" novalidate enctype="multipart/form-data">
+    <label>
+      Exercise Name
+      <input type="text" formControlName="exercise_name" >
+    </label>
+
+    <label>
+      Exercise Description
+      <input type="text" formControlName="exercise_description">
+    </label>
+
+    <label>
+      Exercise Image
+      <input #fileInput type="file">
+    </label>
+
+  </form>
+  <button (click)="addExercise()">
+    button
+  </button>
+</div>
