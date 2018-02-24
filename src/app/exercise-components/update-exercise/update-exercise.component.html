@@ -1,3 +1,18 @@
-<p>
-  update-exercise works!
-</p>
+<div class="container">
+  <form [formGroup]="formG" (ngSubmit)="updateExercise()" novalidate enctype="multipart/form-data">
+    <label>
+      Exercise Name
+      <input type="text" formControlName="exercise_name">
+    </label>
+
+    <label>
+      Exercise Description
+      <input type="text" formControlName="exercise_description">
+    </label>
+
+    <button (click)="updateExercise()">
+      button
+    </button>
+
+  </form>
+</div>

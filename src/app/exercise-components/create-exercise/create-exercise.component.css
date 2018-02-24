@@ -1,0 +1,16 @@
+.image_style {
+  display: block;
+  width: 400px;
+  height: 400px;
+  margin: auto
+}
+
+div {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.container {
+  width:800px;
+  margin:0 auto;
+}

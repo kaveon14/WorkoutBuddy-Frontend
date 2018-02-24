@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {ExerciseService} from "../exercise-services/exercise.service";
-import {Exercise} from "../models/exercise";
+import {ExerciseService} from "../../exercise-services/exercise.service";
+import {Exercise} from "../../models/exercise";
 
 @Component({
   selector: 'app-create-exercise',
@@ -11,33 +11,19 @@ import {Exercise} from "../models/exercise";
 export class CreateExerciseComponent implements OnInit {
 
   formG: FormGroup;
-
-
   submitted = false;
+  @ViewChild("file") file;
 
 
   constructor(private fb: FormBuilder, private exerciseService: ExerciseService) {
     this.createForm();
   }
-  // <textarea formControlName="exercise_description" rows="4" cols="50"></textarea>
 
-  @ViewChild("fileInput") fileInput;
-//needs to used for updating an exercise
-  addFile(exercise: Exercise): void {// this SHIT works
-    let fi = this.fileInput.nativeElement;
-    if (fi.files && fi.files[0]) {
-      let fileToUpload = fi.files[0];
-      console.log(fileToUpload)
-      this.exerciseService
-        .setCustomExerciseImage(fileToUpload,exercise.id,exercise.exercise_name)
-        .subscribe(res => {
-          console.log(res);
-        });
-    }
+  ngOnInit() {
+
   }
 
-
-      createForm() {
+  createForm() {
     this.formG = this.fb.group({
       exercise_name: '',
       exercise_description: '',
@@ -49,16 +35,42 @@ export class CreateExerciseComponent implements OnInit {
     this.addExercise();
   }
 
-  addExercise() {//this needs to do checking
+  addExercise() {
     const model = this.formG.value;
-    var exercise = new Exercise();
+    let exercise = new Exercise();
     exercise.exercise_name = model.exercise_name as string;
     exercise.exercise_description = model.exercise_description as string;
-    this.exerciseService.createExercise(exercise).subscribe();
-    this.addFile(exercise);
+    exercise.profileId = 1;//just for testing purposes
+    this.exerciseService.createExercise(exercise).subscribe(res =>  {
+       this.addFile(res['id']);
+    });
   }
 
-  ngOnInit() {
+  addFile(id: number): void {
+    let fileToUpload = this.getImageFile();
+    this.exerciseService.setCustomExerciseImage(fileToUpload,id)
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+
+  updateImgSrc() {
+    let file = this.getImageFile();
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(file as File);
+    var preview = document.querySelector('img');
+
+    fileReader.addEventListener("load",  function() {
+      preview.src = fileReader.result;
+    });
+  }
+
+  getImageFile(): File {
+    let fi = this.file.nativeElement;
+    if (fi.files && fi.files[0]) {
+      return fi.files[0];
+    }
+    return null;
   }
 
 }

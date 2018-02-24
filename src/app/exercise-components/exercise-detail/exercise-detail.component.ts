@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Exercise} from "../models/exercise";
 import {ActivatedRoute} from "@angular/router";
 import {ExerciseService} from "../exercise-services/exercise.service";
-//allow for editing of custom exercises
+
 @Component({
   selector: 'app-exercise-detail',
   templateUrl: './exercise-detail.component.html',
@@ -10,18 +10,19 @@ import {ExerciseService} from "../exercise-services/exercise.service";
 })
 export class ExerciseDetailComponent implements OnInit {
 
-
   exercise: Exercise;
 
   constructor(private route: ActivatedRoute,private exerciseService: ExerciseService) { }
 
-  getExercise(): void {
-    const id = +this.route.snapshot.paramMap.get('id');// need to make a file for the constants
-    this.exerciseService.getExercise(id,false).subscribe(ex => this.exercise = ex['RequestResponse']);
-  }
-
   ngOnInit() {
     this.getExercise();
+  }
+
+  getExercise(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    const default_exercise = this.route.snapshot.paramMap.get('default_exercise');
+    this.exerciseService.getExercise(id,default_exercise=='true')
+      .subscribe(ex => this.exercise = ex['RequestResponse']);
   }
 
 }
