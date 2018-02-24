@@ -6,7 +6,7 @@
   <div style="width: 50%; margin: 0 auto;">
     <p style="white-space: pre-line;">{{exercise.exercise_description}}</p>
   </div>
-  <div *ngIf="exercise.default_exercise">
+  <div *ngIf="!exercise.default_exercise">
     <button routerLink="/updateExercise/{{exercise.id}}">Update Exercise</button>
   </div>
 </div>

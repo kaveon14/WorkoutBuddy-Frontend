@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Exercise} from "../models/exercise";
+import {Component, OnInit} from '@angular/core';
+import {Exercise} from "../../models/exercise";
 import {ActivatedRoute} from "@angular/router";
-import {ExerciseService} from "../exercise-services/exercise.service";
+import {ExerciseService} from "../../exercise-services/exercise.service";
 
 @Component({
   selector: 'app-exercise-detail',
@@ -12,7 +12,9 @@ export class ExerciseDetailComponent implements OnInit {
 
   exercise: Exercise;
 
-  constructor(private route: ActivatedRoute,private exerciseService: ExerciseService) { }
+  constructor(private route: ActivatedRoute,private exerciseService: ExerciseService) {
+    this.exercise = new Exercise();
+  }
 
   ngOnInit() {
     this.getExercise();
