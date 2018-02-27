@@ -1,3 +1,15 @@
-<p>
-  sub-workout works!
-</p>
+<h2>SubWorkouts</h2>
+<div [hidden]="!d">
+  <li *ngFor="let sw of sub_workout_list">
+    <a (click)="getExerciseGoals(sw.id)">{{sw.sub_workout_name}}</a>
+  </li>
+</div>
+
+<div [hidden]="d">
+  <li *ngFor="let ex of exercise_goals">
+    <a routerLink="/exercise/{{ex.exercise_id}}/{{ex.default_exercise}}">{{ex.exercise_name}}</a>
+    <p>Sets: {{ex.goal_sets}}</p>
+    <p>Reps: {{ex.goal_reps}}</p>
+  </li>
+  <button (click)="flip()">Back</button>
+</div>
