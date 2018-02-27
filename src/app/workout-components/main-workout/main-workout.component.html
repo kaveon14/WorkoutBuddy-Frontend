@@ -1,3 +1,4 @@
-<p>
-  main-workout works!
-</p>
+<h2>MainWorkouts</h2>
+<li *ngFor="let mw of main_workout_list">
+  <a routerLink="/subworkouts/{{mw.id}}">{{mw.main_workout_name}}</a>
+</li>
