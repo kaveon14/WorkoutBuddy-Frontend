@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ExerciseGoals} from "../../models/exercise-goals";
 import {componentRefresh} from "@angular/core/src/render3/instructions";
 import {falseIfMissing} from "protractor/built/util";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-sub-workout',
@@ -15,17 +16,26 @@ export class SubWorkoutComponent implements OnInit {
 
   sub_workout_list: SubWorkout[];
   exercise_goals: ExerciseGoals[];
+  hide_form: boolean;
+  hide_exercises: boolean;
+  formG: FormGroup;
 
-  d: boolean;
-
-  constructor(private route: ActivatedRoute,private workoutService: WorkoutService) {
+  constructor(private route: ActivatedRoute,private workoutService: WorkoutService,private fb: FormBuilder) {
     this.sub_workout_list = [];
     this.exercise_goals = [];
-    this.d = true;
+    this.hide_exercises = false;
+    this.hide_form = true;
+    this.createForm();
   }
 
   ngOnInit() {
     this.getSubWorkouts()
+  }
+
+  createForm() {
+    this.formG = this.fb.group({
+      sub_workout_name:'',
+    });
   }
 
   getSubWorkouts() {
@@ -40,11 +50,28 @@ export class SubWorkoutComponent implements OnInit {
       console.log(r['RequestResponse']);
   }
     );
-    this.d = false;
+    this.hide_exercises = true;
   }
 
-  flip() {
-    this.d = true;
+  hideExerciseGoals() {
+    this.hide_exercises = false;
+  }
+
+  hideCreateSWForm() {
+    this.hide_form = false;
+  }
+
+  createSubWorkout() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    const model = this.formG.value;
+    let subWorkout = new SubWorkout();
+    subWorkout.sub_workout_name = model.sub_workout_name as string;
+    subWorkout.mainWorkoutId = id;
+    this.workoutService.createSubWorkout(subWorkout).subscribe(res => {
+      subWorkout.id =res['RequestResponse']['id'];
+      this.sub_workout_list.push(subWorkout);
+    });
+    this.hide_form = true;
   }
 
 }
