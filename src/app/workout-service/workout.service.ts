@@ -3,10 +3,14 @@ import {Observable} from "rxjs/Observable";
 import {MainWorkout} from "../models/main-workout";
 import {catchError} from "rxjs/operators";
 import {ProfileService} from "../user-profile-service/profile.service";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
 import {SubWorkout} from "../models/sub-workout";
 import {ExerciseGoals} from "../models/exercise-goals";
+
+const postOptions = {
+  headers: new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'},)
+};
 
 @Injectable()
 export class WorkoutService {
@@ -52,6 +56,18 @@ export class WorkoutService {
     return this.http.get<ExerciseGoals[]>(url).pipe(
       catchError(this.handleError('getSubWorkoutExercises', []))
     );
+  }
+
+  createMainWorkout(mainWorkout: MainWorkout): Observable<MainWorkout> {
+    const url = 'http://127.0.0.1:8000/testWorkoutApi/createMainWorkout';
+    mainWorkout.profileId = this.profileService.profileId;
+    return this.http.post<MainWorkout>(url,mainWorkout,postOptions);
+  }
+
+  createSubWorkout(subWorkout: SubWorkout): Observable<SubWorkout> {
+    const url = 'http://127.0.0.1:8000/testWorkoutApi/createSubWorkout';
+    subWorkout.profileId = this.profileService.profileId;
+    return this.http.post<SubWorkout>(url,subWorkout,postOptions);
   }
 
 }
