@@ -1,3 +1,21 @@
-<p>
-  user-login works!
-</p>
+<div class="container">
+  <form [formGroup]="formG" novalidate>
+    <div>
+      <label>
+        username
+      </label>
+      <input type="text"  formControlName="username">
+    </div>
+
+    <div>
+
+      <label>
+        password
+      </label>
+      <input type="password"  formControlName="password">
+    </div>
+  </form>
+  <div>
+    <button (click)="login()">Login</button>
+  </div>
+</div>
