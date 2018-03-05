@@ -1,0 +1,17 @@
+<h2>Progress Photos</h2>
+<div [hidden]="hide_photos">
+  <li *ngFor="let p of progress_photos">
+    <!-- <img src="http://127.0.0.1:8000{{p.photo}}" style="float: left;"> -->
+    <a (click)="showPhoto(p)">{{p.date_time}}</a>
+  </li>
+  <button routerLink="/addProgressPhoto">Add Photo</button>
+</div>
+
+<div [hidden]="!hide_photos">
+  <img src="http://127.0.0.1:8000{{clickedPhoto.photo}}" class="image_style">
+  <button (click)="deletePhoto(clickedPhoto)">delete</button>
+  <button (click)="showPhotoList()">back</button>
+</div>
+
+
+
