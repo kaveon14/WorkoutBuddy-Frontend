@@ -1,3 +1,23 @@
-<p>
-  completed-workouts works!
-</p>
+<div [hidden]="!hide_workout">
+  <li *ngFor="let w of workouts">
+    <a (click)="getWorkout(w)">{{w.main_workout_name}} -> {{w.sub_workout_name}} -> {{w.date}}</a>
+  </li>
+</div>
+
+<div [hidden]="hide_workout">
+  <h2>{{clicked_workout.main_workout_name}} -> {{clicked_workout.sub_workout_name}} -> {{clicked_workout.date}}</h2>
+
+  <li *ngFor="let ce of ex">
+    <p>{{ce.exercise_name}}</p>
+    <ul>
+      <li *ngFor="let s of ce.sets">
+        Set {{s.set}}: Reps: {{s.reps}} Weight: {{s.weight}} {{s.unit}}
+      </li>
+    </ul>
+  </li>
+
+
+  <div>
+    <button (click)="revert()">Back</button>
+  </div>
+</div>
