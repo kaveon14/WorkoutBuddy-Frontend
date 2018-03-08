@@ -7,6 +7,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
 import {SubWorkout} from "../models/sub-workout";
 import {ExerciseGoal} from "../models/exercise-goals";
+import {Workout} from "../models/workout";
 
 const postOptions = {
   headers: new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'},)
@@ -107,6 +108,13 @@ export class WorkoutService {
     input.append('subWorkoutId',subWorkout.id.toString());
     input.append('exercise_goal_id',ex_goal.id.toString());
     return this.http.post<SubWorkout>(url,input);
+  }
+
+  getCompletedWorkouts() {
+    const url = 'http://127.0.0.1:8000/testWorkoutApi/getCompletedWorkouts';
+    let input = new FormData();
+    input.append('profileId',this.profileService.profileId.toString());
+    return this.http.post<Workout>(url,input);
   }
 
 }
