@@ -8,9 +8,14 @@ div {
   margin:0 auto;
 }
 
-.image_style {
+.body {
+  text-align: center;
+}
+
+.body img {
   display: block;
   width: 400px;
   height: 400px;
-  margin: auto
+  margin: auto;
+  padding-bottom: 20px;
 }

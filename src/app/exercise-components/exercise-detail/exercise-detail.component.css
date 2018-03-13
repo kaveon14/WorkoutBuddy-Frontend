@@ -4,3 +4,20 @@
   height: 400px;
   margin: auto
 }
+
+.body {
+  width:800px;
+  margin:0 auto;
+  text-align: center;
+}
+
+.body img {
+  display: block;
+  width: 400px;
+  height: 400px;
+  margin: auto
+}
+
+.body p {
+  white-space: pre-line;
+}

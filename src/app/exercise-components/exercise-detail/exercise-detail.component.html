@@ -1,12 +1,10 @@
-<!-- This is basically complete -->
-
-<div style="width:800px; margin:0 auto;">
-  <h2 style="text-align:center;">{{exercise.exercise_name}}</h2>
-  <img src="http://127.0.0.1:8000/{{exercise.exercise_image}}" class="image_style">
+<div class="body">
+  <h2>{{exercise.exercise_name}}</h2>
+  <img src="http://127.0.0.1:8000/{{exercise.exercise_image}}">
   <div style="width: 50%; margin: 0 auto;">
-    <p style="white-space: pre-line;">{{exercise.exercise_description}}</p>
-  </div>
-  <div *ngIf="!exercise.default_exercise">
-    <button routerLink="/updateExercise/{{exercise.id}}">Update Exercise</button>
+    <p>{{exercise.exercise_description}}</p>
+    <div *ngIf="!exercise.default_exercise">
+      <button routerLink="/updateExercise/{{exercise.id}}">Update Exercise</button>
+    </div>
   </div>
 </div>

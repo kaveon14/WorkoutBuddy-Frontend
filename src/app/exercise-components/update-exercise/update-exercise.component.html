@@ -1,31 +1,25 @@
 <div class="container">
   <form [formGroup]="formG" (ngSubmit)="updateExercise()" novalidate enctype="multipart/form-data">
-    <div>
+    <div class="body">
       <label>
         Exercise Name
-        <input type="text" formControlName="exercise_nam">
+        <input type="text" formControlName="exercise_nam" style="width: 200px">
       </label>
-    </div>
 
-    <div>
+      <img #image src="http://127.0.0.1:8000/{{exercise.exercise_image}}">
+      <input type="file" (change)="updateImgSrc()" #file>
+
       <label>
         Exercise Description
         <textarea rows="4" cols="50" formControlName="exercise_description">
       </textarea>
       </label>
-    </div>
 
-    <div>
-      <img class="image_style" #image src="http://127.0.0.1:8000/{{exercise.exercise_image}}">
-      <input type="file" (change)="updateImgSrc()" #file>
-    </div>
 
-    <div>
       <button (click)="updateExercise()">
         update
       </button>
-    </div>
-    <div>
+
       <button (click)="deleteExercise()">
         delete
       </button>

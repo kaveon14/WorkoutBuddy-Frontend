@@ -1,4 +1,6 @@
-<h2>Default Exercises</h2>
-<li *ngFor="let ex of defaultExercises">
-  <a routerLink="/exercise/{{ex.id}}/{{ex.default_exercise}}">{{ex.exercise_name}}</a>
-</li>
+<div class="body">
+  <h2>Default Exercises</h2>
+  <li *ngFor="let ex of defaultExercises">
+    <a routerLink="/exercise/{{ex.id}}/{{ex.default_exercise}}">{{ex.exercise_name}}</a>
+  </li>
+</div>
