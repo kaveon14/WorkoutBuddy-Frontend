@@ -1,0 +1,50 @@
+
+.header {
+  width: 100%;
+  background-color: white;
+  border: 2px white;
+  border-style: solid;
+}
+
+.header h1 {
+  text-align:center;
+  color: blue;
+}
+
+.header a {
+  padding-left: 10%;
+  color: deeppink;
+}
+
+.body {
+  width:800px;
+  margin:0 auto;
+  padding-top: 135px;
+}
+
+.navbar {
+  width: 100%;
+  background-color: gainsboro;
+  position: fixed;
+}
+
+.navbar h1 {
+  text-align:center;
+  color: blue;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: deeppink;
+}
+
+
+
