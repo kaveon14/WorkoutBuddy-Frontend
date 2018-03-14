@@ -1,20 +1,32 @@
-<div>
-  <div class="navbar">
-    <h1>{{ title }}</h1>
-    <a routerLink="/exercises">Exercises</a>
-    <a routerLink="/login" style="float:right">Login</a>
-    <a routerLink="/mainworkouts">MainWorkouts</a>
-    <a routerLink="/progressPhotos">Progress Photos</a>
-    <a routerLink="/getCompletedWorkouts">Workouts</a>
-    <a style="float:right">Profile</a>
+<body class="site_container">
+
+<header class="header">
+  <div>
+    <h1 routerLink="/">{{ title }}</h1>
   </div>
 
-  <div class="body">
+  <a routerLink="/exercises">Exercises</a>
+  <a routerLink="/login" style="float:right">Login</a>
+  <a routerLink="/mainworkouts">MainWorkouts</a>
+  <a routerLink="/progressPhotos">Progress Photos</a>
+  <a routerLink="/getCompletedWorkouts">Workouts</a>
+  <a style="float:right">Profile</a>
+</header>
+
+<main class="main_body">
     <router-outlet></router-outlet>
-  </div>
-</div>
+</main>
 
+<!-- using test links -->
+<footer class="footer">
+  <a routerLink="/exercises">Exercises</a>
+  <br>
+  <a routerLink="/login">Login</a>
+  <br>
+  <a routerLink="/mainworkouts">MainWorkouts</a>
+  <br>
+  <a routerLink="/progressPhotos">Progress Photos</a>
+</footer>
 
-
-
+</body>
 
