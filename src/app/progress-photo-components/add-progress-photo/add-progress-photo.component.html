@@ -1,10 +1,8 @@
-<div>
+<div class="main_body">
   <form [formGroup]="formG" novalidate enctype="multipart/form-data">
-    <div>
-      <img class="image_style" #image >
-      <input type="file" (change)="updateImgSrc()" #file>
-    </div>
+    <img class="image_style" #image >
+    <input style="float: left" type="file"  (change)="updateImgSrc()" #file>
+    <button (click)="addPhoto()" style="float: left">Add Photo</button>
+    <button routerLink="/progressPhotos" style="float: left">Progress Photos</button>
   </form>
-  <button (click)="addPhoto()">Add Photo</button>
-  <button routerLink="/progressPhotos">Progress Photos</button>
 </div>

@@ -8,11 +8,11 @@ div {
   margin:0 auto;
 }
 
-.body {
+.main_body {
   text-align: center;
 }
 
-.body img {
+.main_body img {
   display: block;
   width: 400px;
   height: 400px;

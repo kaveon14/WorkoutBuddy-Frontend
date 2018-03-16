@@ -1,14 +1,14 @@
-.body {
+.main_body {
 }
 
-.body h2 {
+.main_body h2 {
   text-align:center;
 }
 
-.body a {
+.main_body a {
   color: deeppink;
 }
 
-.body li {
+.main_body li {
   color: blue;
 }

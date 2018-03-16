@@ -1,3 +1,2 @@
-<p>
-  user-logout works!
-</p>
+<button (click)="logout()" [hidden]="!logged_out">logout</button>
+<h2 [hidden]="logged_out">Logged Out</h2>

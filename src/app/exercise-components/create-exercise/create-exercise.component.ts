@@ -11,7 +11,6 @@ import {Exercise} from "../../models/exercise";
 export class CreateExerciseComponent implements OnInit {
 
   formG: FormGroup;
-  submitted = false;
   @ViewChild("file") file;
 
 
@@ -30,8 +29,7 @@ export class CreateExerciseComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    this.submitted = true;
+  onSubmit() {//this is calling it twice
     this.addExercise();
   }
 
@@ -40,7 +38,6 @@ export class CreateExerciseComponent implements OnInit {
     let exercise = new Exercise();
     exercise.exercise_name = model.exercise_name as string;
     exercise.exercise_description = model.exercise_description as string;
-    exercise.profileId = 1;//just for testing purposes
     this.exerciseService.createExercise(exercise).subscribe(res =>  {
        this.addFile(res['id']);
     });
@@ -58,7 +55,7 @@ export class CreateExerciseComponent implements OnInit {
     let file = this.getImageFile();
     let fileReader = new FileReader();
     fileReader.readAsDataURL(file as File);
-    var preview = document.querySelector('img');
+    let preview = document.querySelector('img');
 
     fileReader.addEventListener("load",  function() {
       preview.src = fileReader.result;

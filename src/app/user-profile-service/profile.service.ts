@@ -13,7 +13,7 @@ export class ProfileService {
   profileId: number;
 
   constructor(private http: HttpClient) {
-    this.profileId = 1
+    this.profileId = 1;//just for testing purposes
   }
 
   login(username: string,password: string) {

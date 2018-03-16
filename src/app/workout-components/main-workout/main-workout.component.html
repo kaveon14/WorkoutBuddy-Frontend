@@ -1,8 +1,9 @@
-<h2>MainWorkouts</h2>
-<li *ngFor="let mw of main_workout_list">
-  <a routerLink="/subworkouts/{{mw.id}}">{{mw.main_workout_name}}</a>
-</li>
-
+<div class="main_body">
+  <h2>MainWorkouts</h2>
+  <li *ngFor="let mw of main_workout_list">
+    <a routerLink="/subworkouts/{{mw.id}}">{{mw.main_workout_name}}</a>
+  </li>
+</div>
 
 <div [hidden]="hide_form">
   <form [formGroup]="formG" novalidate enctype="multipart/form-data">
@@ -11,4 +12,4 @@
   <button (click)="createMainWorkout()"> sumbit</button>
 
 </div>
-<button [hidden]="!hide_form" (click)="showMWForm()" >Add New MainWorkout</button>
+<button [hidden]="!hide_form" (click)="showMWForm()">Add New MainWorkout</button>

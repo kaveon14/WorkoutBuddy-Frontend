@@ -86,7 +86,7 @@ export class SubWorkoutComponent implements OnInit {
 
   }
 
-  deleteSubWorkout() {
+  deleteSubWorkout() {//needs to remove sw from list
     this.workoutService.deleteSubWorkout(this.clickedSubWorkout).subscribe();
     this.hideExerciseGoals();
     this.exercise_goals = []

@@ -30,7 +30,8 @@ export class UserLoginComponent implements OnInit {
     let username = model.username;
     let password = model.password;
     this.profileService.login(username,password).subscribe(r => {
-      console.log(this.profileService.profileId = r['RequestResponse']['profileId']);
+      this.profileService.profileId = r['RequestResponse']['profileId'];
+      console.log(this.profileService.profileId);
     })
   }
 

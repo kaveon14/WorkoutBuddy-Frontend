@@ -1,0 +1,16 @@
+Exercise:
+
+
+Profile:
+TODO view max lifts
+TODO set/change profile picture
+
+Workout:
+
+may not actually do on the website TODO 'do' a workout
+TODO get completed workouts
+
+Progress Photos:
+
+
+do user signup

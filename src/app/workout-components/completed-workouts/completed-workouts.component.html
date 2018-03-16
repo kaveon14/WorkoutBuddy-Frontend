@@ -1,4 +1,4 @@
-<div [hidden]="!hide_workout">
+<div [hidden]="!hide_workout" class="main_body">
   <li *ngFor="let w of workouts">
     <a (click)="getWorkout(w)">{{w.main_workout_name}} -> {{w.sub_workout_name}} -> {{w.date}}</a>
   </li>

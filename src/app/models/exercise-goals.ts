@@ -1,4 +1,4 @@
-export class ExerciseGoals {
+export class ExerciseGoal {
   id: number;
   exercise_id: number;
   default_exercise: boolean;

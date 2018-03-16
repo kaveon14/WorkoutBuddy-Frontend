@@ -1,11 +1,11 @@
-<h2 [hidden]="hide_exercises">SubWorkouts</h2>
-<div [hidden]="hide_exercises">
+<div [hidden]="hide_exercises" class="main_body">
+  <h2>SubWorkouts</h2>
   <li *ngFor="let sw of sub_workout_list">
     <a (click)="getExerciseGoals(sw)">{{sw.sub_workout_name}}</a>
   </li>
 </div>
 
-<div [hidden]="!hide_exercises">
+<div [hidden]="!hide_exercises" class="main_body">
   <h2>{{clickedSubWorkout.sub_workout_name}}</h2>
   <li *ngFor="let ex of exercise_goals">
     <a routerLink="/exercise/{{ex.exercise_id}}/{{ex.default_exercise}}">{{ex.exercise_name}}</a>

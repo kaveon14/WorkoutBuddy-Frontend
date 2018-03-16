@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ProfileService} from "../../user-profile-service/profile.service";
 
 @Component({
   selector: 'app-user-logout',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserLogoutComponent implements OnInit {
 
-  constructor() { }
+  logged_out: boolean;
+
+  constructor(private profileService: ProfileService) {
+    this.logged_out = false;
+  }
 
   ngOnInit() {
+    console.log(this.profileService.profileId);
+    //if(this.profileService.profileId == 0) {
+      //this.logged_out = true;
+    //}
   }
+
+  logout() {
+    this.profileService.profileId = 0;
+    this.logged_out = true;
+  }
+
+
 
 }

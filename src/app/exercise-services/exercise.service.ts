@@ -46,12 +46,12 @@ export class ExerciseService {
     };
   }
 
-  getDefaultExercises(): Observable<Exercise[]> {// no way this gonna work
+  getAllExercises(): Observable<Exercise[]> {// no way this gonna work
     const url = 'http://127.0.0.1:8000/testExerciseApi/getAllExercises';
     let input = new FormData();
     input.append('profileId',this.profileService.profileId.toString());
     return this.http.post<Exercise[]>(url,input,t).pipe(
-      catchError(this.handleError('getDefaultExercises', []))
+      catchError(this.handleError('getAllExercises', []))
     );
   }
   getExercise(id: number,default_exercise: boolean): Observable<Exercise> {
@@ -75,7 +75,7 @@ export class ExerciseService {
     return this.http.post<Exercise>(url, exercise,postOptions);
   }
 
-  setCustomExerciseImage(file: any,id: number) {
+  setCustomExerciseImage(file: any,id: number) {//only used when creating an exercise
     let input = new FormData();
     input.append("id",id.toString());
     input.append("file", file);

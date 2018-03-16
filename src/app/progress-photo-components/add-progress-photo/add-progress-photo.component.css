@@ -1,3 +1,11 @@
+.main_body {
+  text-align: center;
+  width: fit-content;
+  margin:0 auto;
+  padding-top: 3%;
+}
+
+
 .image_style {
   display: block;
   width: 400px;

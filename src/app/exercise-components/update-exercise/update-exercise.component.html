@@ -1,6 +1,6 @@
 <div class="container">
   <form [formGroup]="formG" (ngSubmit)="updateExercise()" novalidate enctype="multipart/form-data">
-    <div class="body">
+    <div class="main_body">
       <label>
         Exercise Name
         <input type="text" formControlName="exercise_nam" style="width: 200px">
@@ -14,7 +14,6 @@
         <textarea rows="4" cols="50" formControlName="exercise_description">
       </textarea>
       </label>
-
 
       <button (click)="updateExercise()">
         update

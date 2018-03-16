@@ -19,7 +19,7 @@ export class ExercisesComponent implements OnInit {
 
   //needs to check if logged in, if logged in get all exercises
   getDefaultExercises(): void {
-    this.exerciseService.getDefaultExercises()
+    this.exerciseService.getAllExercises()
        .subscribe(defaultExercises => this.defaultExercises = defaultExercises['RequestResponse']);
   }
 
