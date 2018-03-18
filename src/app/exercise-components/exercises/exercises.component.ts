@@ -14,11 +14,10 @@ export class ExercisesComponent implements OnInit {
   constructor(private exerciseService: ExerciseService) { }
 
   ngOnInit() {
-    this.getDefaultExercises();
+    this.getExercises();
   }
 
-  //needs to check if logged in, if logged in get all exercises
-  getDefaultExercises(): void {
+  getExercises(): void {
     this.exerciseService.getAllExercises()
        .subscribe(defaultExercises => this.defaultExercises = defaultExercises['RequestResponse']);
   }
