@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component,OnInit, ViewChild} from '@angular/core';
 import {Exercise} from "../../models/exercise";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ExerciseService} from "../../exercise-services/exercise.service";
@@ -40,23 +40,22 @@ export class UpdateExerciseComponent implements OnInit {
     });
   }
 
-  updateExercise() {//called twice for some retarded reason
+  updateExercise() {
     const model = this.formG.value;
     let exercise = new Exercise();
     exercise.id = this.exercise.id;
     exercise.exercise_name = model.exercise_nam as string;
     exercise.exercise_description = model.exercise_description as string;
-    exercise.profileId = 1;
-    this.exercise.profileId = 1;//just for testing purposes
-    this.exerciseService.updateCustomExercise(exercise).subscribe(res => {
-      console.log(res)});
-    this.updateImageFile(exercise);
+    let fileToUpload = this.getImageFile();
+    this.exerciseService.updateCustomExercise(exercise,fileToUpload).subscribe(res => {
+      console.log(res);
+    });
   }
 
   deleteExercise() {
-    this.exercise.profileId = 1;
     this.exerciseService.deleteCustomExercise(this.exercise).subscribe(res => {
-      console.log(res)});
+      console.log(res);
+    });
   }
 
   updateImgSrc() {
@@ -68,17 +67,6 @@ export class UpdateExerciseComponent implements OnInit {
     fileReader.addEventListener("load",  function() {
       preview.src = fileReader.result;
     });
-  }
-
-  updateImageFile(exercise: Exercise): void {
-    let fileToUpload = this.getImageFile();
-    if(fileToUpload != null) {
-      this.exerciseService
-        .updateCustomExerciseImage(fileToUpload,exercise.id)
-        .subscribe(res => {
-          console.log(res);
-        });
-    }
   }
 
   getImageFile(): File {

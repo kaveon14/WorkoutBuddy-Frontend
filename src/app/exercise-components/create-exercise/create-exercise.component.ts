@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ExerciseService} from "../../exercise-services/exercise.service";
 import {Exercise} from "../../models/exercise";
 
@@ -13,13 +13,11 @@ export class CreateExerciseComponent implements OnInit {
   formG: FormGroup;
   @ViewChild("file") file;
 
-
   constructor(private fb: FormBuilder, private exerciseService: ExerciseService) {
     this.createForm();
   }
 
   ngOnInit() {
-
   }
 
   createForm() {
@@ -29,26 +27,15 @@ export class CreateExerciseComponent implements OnInit {
     });
   }
 
-  onSubmit() {//this is calling it twice
-    this.addExercise();
-  }
-
   addExercise() {
     const model = this.formG.value;
     let exercise = new Exercise();
     exercise.exercise_name = model.exercise_name as string;
     exercise.exercise_description = model.exercise_description as string;
-    this.exerciseService.createExercise(exercise).subscribe(res =>  {
-       this.addFile(res['id']);
-    });
-  }
-
-  addFile(id: number): void {
     let fileToUpload = this.getImageFile();
-    this.exerciseService.setCustomExerciseImage(fileToUpload,id)
-      .subscribe(res => {
-        console.log(res);
-      });
+    this.exerciseService.createExercise(exercise,fileToUpload).subscribe(res =>  {
+      console.log(res);
+    });
   }
 
   updateImgSrc() {
