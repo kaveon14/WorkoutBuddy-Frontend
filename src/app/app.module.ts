@@ -21,6 +21,9 @@ import { ProgressPhotosComponent } from './progress-photo-components/progress-ph
 import {ProgressPhotoService} from "./progress-photo-service/progress-photo.service";
 import { AddProgressPhotoComponent } from './progress-photo-components/add-progress-photo/add-progress-photo.component';
 import { CompletedWorkoutsComponent } from './workout-components/completed-workouts/completed-workouts.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import {NgxOAuthModule} from 'ngx-oauth-client';
+import {HttpTokenClient} from "./http-token-client";
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import { CompletedWorkoutsComponent } from './workout-components/completed-worko
     ProgressPhotosComponent,
     AddProgressPhotoComponent,
     CompletedWorkoutsComponent,
+    WelcomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,8 +53,9 @@ import { CompletedWorkoutsComponent } from './workout-components/completed-worko
       cookieName: 'csrftoken',
       headerName: 'X-CSRFToken'
     }),
+    NgxOAuthModule,
   ],
-  providers: [ExerciseService,ProfileService,WorkoutService,ProgressPhotoService],
+  providers: [ExerciseService,ProfileService,WorkoutService,ProgressPhotoService,HttpTokenClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
