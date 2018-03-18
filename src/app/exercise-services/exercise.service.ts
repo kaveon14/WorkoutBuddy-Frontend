@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Exercise} from "../models/exercise";
-import {ProfileService} from "../user-profile-service/profile.service";
 import {HttpTokenClient} from "../http-token-client";
 
 @Injectable()
 export class ExerciseService {
 
-  constructor(private http: HttpClient,private tokenClient:HttpTokenClient,private profileService:ProfileService) { }
+  constructor(private http: HttpClient,private tokenClient:HttpTokenClient) { }
 
   getAllExercises(): Observable<Exercise[]> {
     const url = 'http://127.0.0.1:8000/testExerciseApi/getAllExercises';
