@@ -1,120 +1,121 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {MainWorkout} from "../models/main-workout";
-import {catchError} from "rxjs/operators";
-import {ProfileService} from "../user-profile-service/profile.service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
 import {SubWorkout} from "../models/sub-workout";
 import {ExerciseGoal} from "../models/exercise-goals";
-import {Workout} from "../models/workout";
-
-const postOptions = {
-  headers: new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'},)
-};
+import {HttpTokenClient} from "../http-token-client";
+import {Exercise} from "../models/exercise";
 
 @Injectable()
 export class WorkoutService {
 
-  constructor(private http: HttpClient,private profileService: ProfileService) { }
+  constructor(private tokenClient:HttpTokenClient) { }
 
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-  getMainWorkouts(): Observable<MainWorkout[]> {
+  getMainWorkouts() {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/getMainWorkouts';
-    let input = new FormData();
-    input.append('profileId',this.profileService.profileId.toString());
-    return this.http.post<MainWorkout[]>(url,input).pipe(
-      catchError(this.handleError('getMainWorkouts', []))
-    );
+    return this.tokenClient.get(url);
   }
 
-  getSubWorkouts(id: number): Observable<SubWorkout[]>{
-    const url = 'http://127.0.0.1:8000/testWorkoutApi/getSubWorkouts';
-    let input = new FormData();
-    input.append('mainWorkoutId',id.toString());
-    return this.http.post<SubWorkout[]>(url,input).pipe(
-      catchError(this.handleError('getSubWorkouts', []))
-    );
+  getSubWorkout(id:number) {
+    const url = `http://127.0.0.1:8000/testWorkoutApi/getSubWorkout/?id=${id}`;
+    console.log(id);
+    return this.tokenClient.get(url);
   }
 
-  getExerciseGoals(id: number):Observable<ExerciseGoal[]> {
-    const url = `http://127.0.0.1:8000/testWorkoutApi/getSubWorkoutExercises/?subWorkoutId=${id}`;
-    //let input = new FormData();
-    //input.append('subWorkoutId',id.toString());
-    return this.http.get<ExerciseGoal[]>(url).pipe(
-      catchError(this.handleError('getSubWorkoutExercises', []))
-    );
+  getSubWorkouts(id: number) {
+    const url = `http://127.0.0.1:8000/testWorkoutApi/getAllSubWorkouts/?mainWorkoutId=${id}`;
+    return this.tokenClient.get(url);
   }
 
-  createMainWorkout(mainWorkout: MainWorkout): Observable<MainWorkout> {
+  getExerciseGoals(id: number) {
+    const url = `http://127.0.0.1:8000/testWorkoutApi/getExerciseGoals/?subWorkoutId=${id}`;
+    return this.tokenClient.get(url);
+  }
+
+  getExerciseGoal(id:number) {
+    const url = `http://127.0.0.1:8000/testWorkoutApi/getSingleExGoal/?exGoalId=${id}`;
+    return this.tokenClient.get(url);
+  }
+
+  createMainWorkout(mainWorkout: MainWorkout) {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/createMainWorkout';
-    mainWorkout.profileId = this.profileService.profileId;
-    return this.http.post<MainWorkout>(url,mainWorkout,postOptions);
+    let input = new FormData();
+    input.append('main_workout_name',mainWorkout.main_workout_name);
+    return this.tokenClient.post(url,input);
   }
 
-  createSubWorkout(subWorkout: SubWorkout): Observable<SubWorkout> {
+  createSubWorkout(subWorkout: SubWorkout) {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/createSubWorkout';
-    subWorkout.profileId = this.profileService.profileId;
-    return this.http.post<SubWorkout>(url,subWorkout,postOptions);
+    let input = new FormData();
+    input.append('mainWorkoutId',subWorkout.mainWorkoutId.toString());
+    input.append('sub_workout_name',subWorkout.sub_workout_name);
+    return this.tokenClient.post(url,input);
   }
 
-  updateMainWorkoutName(mainWorkout:MainWorkout): Observable<MainWorkout> {
+  updateMainWorkoutName(mainWorkout:MainWorkout) {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/updateMainWorkoutName';
-    return this.http.post<MainWorkout>(url,mainWorkout,postOptions);
+    let input = new FormData();
+    input.append('main_workout_name',mainWorkout.main_workout_name);
+    return this.tokenClient.post(url,input);
   }
 
-  updateSubWorkoutName(subWorkout:SubWorkout): Observable<SubWorkout> {
+  updateSubWorkoutName(subWorkout:SubWorkout) {
     const url ='http://127.0.0.1:8000/testWorkoutApi/updateSubWorkoutName';
-    return this.http.post<SubWorkout>(url,subWorkout,postOptions);
+    let input = new FormData();
+    input.append('sub_workout_name',subWorkout.sub_workout_name);
+    return this.tokenClient.post(url,input);
   }
 
   deleteMainWorkout(mainWorkout:MainWorkout) {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/deleteMainWorkout';
-    mainWorkout.profileId = this.profileService.profileId;
-    return this.http.post<MainWorkout>(url,mainWorkout,postOptions);
+    let input = new FormData();
+    input.append('id',mainWorkout.id.toString());
+    return this.tokenClient.post(url,input);
   }
 
   deleteSubWorkout(subWorkout:SubWorkout) {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/deleteSubWorkout';
-    return this.http.post<SubWorkout>(url,subWorkout,postOptions);
+    let input = new FormData();
+    input.append('id',subWorkout.id.toString());
+    return this.tokenClient.post(url,input);
   }
 
-  updateExerciseGoals(subWorkout:SubWorkout): Observable<SubWorkout> {
-    const url = 'http://127.0.0.1:8000/testWorkoutApi/updateSubWorkoutExerciseGoals';
-    return this.http.post<SubWorkout>(url,subWorkout,postOptions);
+  updateExerciseGoals(ex_goal:ExerciseGoal) {
+    const url = 'http://127.0.0.1:8000/testWorkoutApi/pl';
+    let input = new FormData();
+    input.append('id',ex_goal.id.toString());
+    input.append('exercise_id',ex_goal.exercise_id.toString());
+    input.append('default_exercise',ex_goal.default_exercise+'');
+    input.append('goal_sets',ex_goal.goal_sets.toString());
+    input.append('goal_reps',ex_goal.goal_reps);
+    return this.tokenClient.post(url,input);
   }
-
+//dont worry about right now
+  /*
   addExerciseGoals(subWorkout:SubWorkout): Observable<SubWorkout> {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/addExerciseGoals';
     return this.http.post<SubWorkout>(url,subWorkout,postOptions);
-  }
+  }*/
 
-  deleteExerciseGoals(subWorkout:SubWorkout,ex_goal:ExerciseGoal): Observable<SubWorkout> {
+
+  deleteExerciseGoals(ex_goal:ExerciseGoal) {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/deleteExerciseGoals';
     let input = new FormData();
-    input.append('subWorkoutId',subWorkout.id.toString());
-    input.append('exercise_goal_id',ex_goal.id.toString());
-    return this.http.post<SubWorkout>(url,input);
+    input.append('id',ex_goal.id.toString());
+    return this.tokenClient.post(url,input);
   }
 
   getCompletedWorkouts() {
     const url = 'http://127.0.0.1:8000/testWorkoutApi/getCompletedWorkouts';
-    let input = new FormData();
-    input.append('profileId',this.profileService.profileId.toString());
-    return this.http.post<Workout>(url,input);
+    return this.tokenClient.get(url);
   }
+
+  getAllExercises(): Observable<Exercise[]> {
+    const url = 'http://127.0.0.1:8000/testExerciseApi/getAllExercises';
+    let exercise_list_object: Exercise[] = [];
+    return this.tokenClient.getObservableType(url,exercise_list_object);
+  }
+
 
 }
