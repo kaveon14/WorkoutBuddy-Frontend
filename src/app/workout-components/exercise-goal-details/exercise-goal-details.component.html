@@ -1,0 +1,28 @@
+<div class="main_body">
+  <h2 routerLink="/exercise/{{ex_goal.exercise_id}}/{{ex_goal.default_exercise}}">{{ex_goal.exercise_name}}</h2>
+
+  <div [hidden]="!update">
+    <select #exercise (change)="setExercise(exercise.value)">
+      <option *ngFor="let e of ex_list;let i = index" [value]="i">{{e.exercise_name}}</option>
+    </select>
+  </div>
+
+  <li>Sets: {{ex_goal.goal_sets}}</li>
+  <div [hidden]="!update">
+    <select #sets (change)="setSetAmount(sets.value)">
+      <option *ngFor="let i of getRangeArray()" [value]="i">{{i}}</option>
+    </select>
+  </div>
+
+  <li>Reps: {{ex_goal.goal_reps}}</li>
+  <div [hidden]="!update">
+    <form [formGroup]="formG" novalidate enctype="multipart/form-data">
+      <label>Enter rep/time range: </label>
+      <input type="text" formControlName="reps" value="{{ex_goal.goal_reps}}">
+    </form>
+  </div>
+</div>
+
+<button [hidden]="update" (click)="prepareToUpdate()">update</button>
+<button [hidden]="!update" (click)="deleteExerciseGoal()">delete</button>
+<button [hidden]="!update" (click)="saveExGoalChanges()">Save</button>

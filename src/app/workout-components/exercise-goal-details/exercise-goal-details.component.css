@@ -1,0 +1,7 @@
+.main_body {
+}
+
+.main_body h2:hover {
+  color: deeppink;
+  cursor: pointer;
+}
