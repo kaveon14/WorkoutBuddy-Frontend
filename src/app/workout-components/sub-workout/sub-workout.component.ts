@@ -14,20 +14,21 @@ import {MainWorkout} from "../../models/main-workout";
   styleUrls: ['./sub-workout.component.css']
 })
 export class SubWorkoutComponent implements OnInit {
-
+  // TODO allow adding of sub workouts ???????
+//add option to update mainworkout(update sw name,delete sw,update/delete mw) --- new components do same for subworkout in ex goals component(update sw name,delete sw,update.delete ex goals)
   sub_workout_list: SubWorkout[];
   exercise_goals: ExerciseGoal[];
   hide_form: boolean;
-  hide_exercises: boolean;
+  hide_exercises: boolean;//new component
   formG: FormGroup;
   clickedSubWorkout: SubWorkout;
 
   constructor(private route: ActivatedRoute,private workoutService: WorkoutService,private fb: FormBuilder) {
     this.sub_workout_list = [];
     this.exercise_goals = [];
-    this.hide_exercises = false;
     this.hide_form = true;
-    this.createForm();
+    this.hide_exercises = true;//new component
+    this.createForm();//should be on init
     this.clickedSubWorkout = null;
   }
 
@@ -47,22 +48,12 @@ export class SubWorkoutComponent implements OnInit {
       this.sub_workout_list = r['RequestResponse']);
   }
 
-  getExerciseGoals(subWorkout:SubWorkout) {
-    this.clickedSubWorkout = subWorkout;
-    this.workoutService.getExerciseGoals(subWorkout.id).subscribe(r => {
-      this.exercise_goals = r['RequestResponse'];
-      console.log(r['RequestResponse']);
-  }
-    );
-    this.hide_exercises = true;
-  }
-
-  hideExerciseGoals() {
-    this.hide_exercises = false;
+  showForm() {
+    this.hide_form = false;
   }
 
   hideCreateSWForm() {
-    this.hide_form = false;
+    this.hide_form = true;
   }
 
   createSubWorkout() {
@@ -99,20 +90,40 @@ export class SubWorkoutComponent implements OnInit {
     this.workoutService.deleteMainWorkout(mainWorkout).subscribe();
   }
 
-  addExerciseGoal() {
+
+
+
+
+
+  addExerciseGoal() {//new component
     //will be harder to do
   }
 
-  updateExerciseGoals() {
+  updateExerciseGoals() {//new component
 
   }
 
-  deleteExerciseGoal(ex_goal:ExerciseGoal) {
+  getExerciseGoals(subWorkout:SubWorkout) {//new component
+    this.clickedSubWorkout = subWorkout;
+    this.workoutService.getExerciseGoals(subWorkout.id).subscribe(r => {
+        this.exercise_goals = r['RequestResponse'];
+        console.log(r['RequestResponse']);
+      }
+    );
+    this.hide_exercises = false;//new component
+  }
+
+  hideExerciseGoals() {//new component
+    this.hide_exercises = true;
+  }
+
+/*
+  deleteExerciseGoal(ex_goal:ExerciseGoal) {//new component
     let index = this.exercise_goals.indexOf(ex_goal);
     if (index > -1) {
       this.exercise_goals.splice(index, 1);
     }
     this.workoutService.deleteExerciseGoals(this.clickedSubWorkout,ex_goal).subscribe();
-  }
+  }*/
 
 }

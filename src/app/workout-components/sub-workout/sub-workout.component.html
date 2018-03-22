@@ -1,11 +1,14 @@
-<div [hidden]="hide_exercises" class="main_body">
+<div [hidden]="!hide_exercises" class="main_body">
   <h2>SubWorkouts</h2>
-  <li *ngFor="let sw of sub_workout_list">
-    <a (click)="getExerciseGoals(sw)">{{sw.sub_workout_name}}</a>
-  </li>
+  <div *ngIf="sub_workout_list.length != 0">
+    <li *ngFor="let sw of sub_workout_list">
+      <a routerLink="/subworkout/{{sw.id}}">{{sw.sub_workout_name}}</a>
+    </li>
+  </div>
 </div>
 
-<div [hidden]="!hide_exercises" class="main_body">
+<!-- Put all this in new component
+<ng-container *ngIf="!hide_exercises">
   <h2>{{clickedSubWorkout.sub_workout_name}}</h2>
   <li *ngFor="let ex of exercise_goals">
     <a routerLink="/exercise/{{ex.exercise_id}}/{{ex.default_exercise}}">{{ex.exercise_name}}</a>
@@ -17,14 +20,18 @@
   <div>
     <button (click)="hideExerciseGoals()">Back</button>
   </div>
-</div>
-
+</ng-container>
+-->
 
 <div [hidden]="hide_form">
   <form [formGroup]="formG" novalidate enctype="multipart/form-data">
     <input type="text" formControlName="sub_workout_name">
   </form>
-  <button (click)="createSubWorkout()">sumbit</button>
+  <button (click)="createSubWorkout()">Create SubWorkout</button>
 </div>
-<button [hidden]="!hide_form" (click)="deleteMainWorkout()">Delete MainWorkout</button>
-<button [hidden]="!hide_form" (click)="hideCreateSWForm()" >Add New SubWorkout</button>
+<ng-container *ngIf="hide_exercises || !hide_form">
+  <button [hidden]="!hide_form" (click)="deleteMainWorkout()">Delete MainWorkout</button>
+  <button [hidden]="!hide_form" (click)="showForm()" >Add New SubWorkout</button>
+
+  <button [hidden]="hide_form" (click)="hideCreateSWForm()">Back</button>
+</ng-container>
