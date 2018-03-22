@@ -82,11 +82,12 @@ export class WorkoutService {
   }
 
   updateExerciseGoals(ex_goal:ExerciseGoal) {
-    const url = 'http://127.0.0.1:8000/testWorkoutApi/pl';
+    const url = 'http://127.0.0.1:8000/testWorkoutApi/updateExerciseGoals';
+    const bool_str = new String(ex_goal.default_exercise);
     let input = new FormData();
     input.append('id',ex_goal.id.toString());
     input.append('exercise_id',ex_goal.exercise_id.toString());
-    input.append('default_exercise',ex_goal.default_exercise+'');
+    input.append('default_exercise',bool_str.toString());
     input.append('goal_sets',ex_goal.goal_sets.toString());
     input.append('goal_reps',ex_goal.goal_reps);
     return this.tokenClient.post(url,input);
