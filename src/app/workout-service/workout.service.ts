@@ -92,12 +92,19 @@ export class WorkoutService {
     input.append('goal_reps',ex_goal.goal_reps);
     return this.tokenClient.post(url,input);
   }
-//dont worry about right now
-  /*
-  addExerciseGoals(subWorkout:SubWorkout): Observable<SubWorkout> {
+
+  addExerciseGoals(ex_goal:ExerciseGoal) {
+    console.log(ex_goal);
     const url = 'http://127.0.0.1:8000/testWorkoutApi/addExerciseGoals';
-    return this.http.post<SubWorkout>(url,subWorkout,postOptions);
-  }*/
+    const bool_str = new String(ex_goal.default_exercise);
+    let input = new FormData();
+    input.append('exercise_id',ex_goal.exercise_id.toString());
+    input.append('default_exercise',bool_str.toString());
+    input.append('goal_sets',ex_goal.goal_sets.toString());
+    input.append('goal_reps',ex_goal.goal_reps);
+    input.append('subWorkoutId',ex_goal.subWorkout_id.toString());
+    return this.tokenClient.post(url,input);
+  }
 
 
   deleteExerciseGoals(ex_goal:ExerciseGoal) {
