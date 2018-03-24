@@ -1,0 +1,24 @@
+<div>
+  <div>
+    <h2>{{ex_goal.exercise_name}}</h2>
+    <select #exercise (change)="setExercise(exercise.value)">
+      <option *ngFor="let e of ex_list;let i = index" [value]="i">{{e.exercise_name}}</option>
+    </select>
+  </div>
+
+  <li>Sets: {{ex_goal.goal_sets}}</li>
+  <div>
+    <select #sets (change)="setSetAmount(sets.value)">
+      <option *ngFor="let i of getRangeArray()" [value]="i">{{i}}</option>
+    </select>
+  </div>
+
+  <li>Reps: {{ex_goal.goal_reps}}</li>
+  <div>
+    <form [formGroup]="formG" novalidate enctype="multipart/form-data">
+      <label>Enter rep/time range:</label>
+      <input type="text" formControlName="reps" value="{{ex_goal.goal_reps}}" (change)="setRepRange()">
+    </form>
+  </div>
+  <button (click)="createExerciseGoal()">Save</button>
+</div>
