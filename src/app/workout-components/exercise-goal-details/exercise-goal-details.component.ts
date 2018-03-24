@@ -49,6 +49,7 @@ export class ExerciseGoalDetailsComponent implements OnInit {
     } else {
       this.temp_ex_goal.default_exercise = false;
     }
+    this.temp_ex_goal.id = this.ex_goal.id;
     this.temp_ex_goal.exercise_id = ex.id;
     this.temp_ex_goal.exercise_name = ex.exercise_name;
     this.temp_ex_goal.goal_reps = this.ex_goal.goal_reps;
@@ -67,6 +68,7 @@ export class ExerciseGoalDetailsComponent implements OnInit {
     this.update = false;
     this.setRepRange();
     this.updateExerciseGoals();
+    console.log(this.temp_ex_goal);
     this.workoutService.updateExerciseGoals(this.temp_ex_goal).subscribe();
   }
 
